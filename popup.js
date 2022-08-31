@@ -18,45 +18,53 @@ async function fetchImage(request_text) {
     return response.text();
 }
 
+function isLoading() {
+    const val = localStorage.getItem("loading");
+    return ((val === "1") ? true : false)
+}
+
 function loader(boolean) {
-    let spinner = document.getElementById("spinner")
-    spinner.style.visibility = (boolean ? "visible" : "hidden")
+    let spinner = document.getElementById("spinner");
+    spinner.style.visibility = (boolean ? "visible" : "hidden");
+    localStorage.setItem("loading", (boolean ? "1" : "0"));
 }
 
 async function getInput() {
-    // Selecting the input element and get its value 
-    let inputVal = document.getElementById("multilineTextInput").value;
-    let model = document.getElementById("model").value;
+    if (!isLoading()) {
+        let inputVal = document.getElementById("multilineTextInput").value;
+        let model = document.getElementById("model").value;
 
-    if (inputVal.length === 0) {
-        inputVal = document.getElementById("multilineTextInput").placeholder;
-    }
-    let outputDiv = document.getElementById("output-div");
-    let response;
-    let response_text;
+        if (inputVal.length === 0) {
+            inputVal = document.getElementById("multilineTextInput").placeholder;
+        }
+        let outputDiv = document.getElementById("output-div");
+        let response;
+        let response_text;
 
-    loader(true)
-    switch (model) {
-        case "gptj":
-            response = await fetchText(inputVal, 32);
-            response_text = JSON.parse(response)["result"];
-            const text = document.createElement("p");
-            text.textContent = response_text;
-            outputDiv.appendChild(text);
-            break;
-        case "dalle-mega":
-            response = await fetchImage(inputVal);
-            response_text = JSON.parse(response)["result"];
-            const image = document.createElement("img");
-            image.src = "data:image/png;base64," + response_text;
-            image.id = "output-image";
-            outputDiv.appendChild(image);
-            break;
-        default:
-            console.log(`${model} not implemented!`)
+        loader(true)
+        switch (model) {
+            case "gptj":
+                response = await fetchText(inputVal, 32);
+                response_text = JSON.parse(response)["result"];
+                const text = document.createElement("p");
+                text.textContent = response_text;
+                text.id = "output-text";
+                outputDiv.appendChild(text);
+                break;
+            case "dalle-mega":
+                response = await fetchImage(inputVal);
+                response_text = JSON.parse(response)["result"];
+                const image = document.createElement("img");
+                image.src = "data:image/png;base64," + response_text;
+                image.id = "output-image";
+                outputDiv.appendChild(image);
+                break;
+            default:
+                console.log(`${model} not implemented!`);
+        }
+        loader(false)
+        console.log(response_text);
     }
-    loader(false)
-    console.log(response_text);
 }
 
 function changeButtonText() {
