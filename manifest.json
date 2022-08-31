@@ -1,0 +1,27 @@
+{
+    "name": "Pipeline AI Extension",
+    "description": "Use nlp and image generation in your browser",
+    "version": "0.1",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "storage"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "/images/pipeline-logo-white-16.png",
+            "32": "/images/pipeline-logo-white-32.png",
+            "48": "/images/pipeline-logo-white-48.png",
+            "128": "/images/pipeline-logo-white-128.png"
+        }
+    },
+    "icons": {
+        "16": "/images/pipeline-logo-white-16.png",
+        "32": "/images/pipeline-logo-white-32.png",
+        "48": "/images/pipeline-logo-white-48.png",
+        "128": "/images/pipeline-logo-white-128.png"
+    }
+}

@@ -1,0 +1,47 @@
+body {
+    font-family: 'Inter';
+    font-weight: 400;
+    margin: 0px;
+    width: 400px;
+}
+
+div#widget {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+div#form {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 20px;
+    color: white;
+    background-color: black;
+    border-style: none;
+    border-radius: 10px;
+    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+textarea {
+    font-family: 'Inter';
+    font-weight: 400;
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px;
+    border-width: 2px;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+button.current {
+    box-shadow: 0 0 0 2px white,
+        0 0 0 4px black;
+}
