@@ -45,7 +45,7 @@ async function getInput() {
         switch (model) {
             case "gptj":
                 response = await fetchText(inputVal, 32);
-                response_text = JSON.parse(response)["result"];
+                response_text = inputVal + JSON.parse(response)["result"];
                 const text = document.createElement("p");
                 text.textContent = response_text;
                 text.id = "output-text";
@@ -67,18 +67,27 @@ async function getInput() {
     }
 }
 
-function changeButtonText() {
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
+function onChangeModel() {
     let model = document.getElementById("model").value;
     let button = document.getElementById("generate");
     const buttonText = { "gptj": "Generate Text", "dalle-mega": "Generate Image" };
     button.textContent = buttonText[model];
+
+    let outputDiv = document.getElementById("output-div");
+    removeAllChildNodes(outputDiv);
 }
 
 function initialiseDom() {
-    changeButtonText()
+    onChangeModel()
     loader(false)
 }
 
 generate.addEventListener("click", () => getInput());
-model.addEventListener("change", () => changeButtonText());
+model.addEventListener("change", () => onChangeModel());
 document.addEventListener("DOMContentLoaded", () => initialiseDom());
