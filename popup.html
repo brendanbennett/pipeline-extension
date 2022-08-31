@@ -9,12 +9,23 @@
 <body>
     <div id="widget">
         <div id="form">
+            <div id="top-bar">
+                <img src="./images/pipeline-logo-black.png" id="logo">
+                <div id="model-selector">
+                    <label for="model">Select model:</label>
+                    <select name="model" id="model">
+                        <option value="gptj">GPT-J</option>
+                        <option value="dalle-mega">Dall-E Mega</option>
+                    </select>
+                </div>
+            </div>
             <textarea id="multilineTextInput" placeholder="Among the most mysterious things known to humans" maxlength=1000></textarea>
-            <button id="generate">Get response</button>
+            <div id="button-area">
+                <button id="generate">Get response</button>
+                <img id="spinner" src="./images/spinner.gif">
+            </div>
         </div>
-        <div id="output-div">
-            <p id="output"></p>
-        </div>
+        <div id="output-div"></div>
     </div>
     <script src="popup.js"></script>
 </body>

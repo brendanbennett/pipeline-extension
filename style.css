@@ -6,6 +6,8 @@ body {
 }
 
 div#widget {
+    font-family: 'Inter';
+    font-weight: 400;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -16,6 +18,27 @@ div#form {
     flex-direction: column;
 }
 
+div#top-bar {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+}
+
+div#model-selector {
+    padding-top: 4px;
+    text-align: right;
+}
+
+div#button-area {
+    padding-top: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+label {
+    font-size: 16px;
+}
+
 button {
     font-family: 'Inter';
     font-weight: 400;
@@ -24,6 +47,7 @@ button {
     background-color: black;
     border-style: none;
     border-radius: 10px;
+    width: 100%;
     height: 40px;
     padding-left: 20px;
     padding-right: 20px;
@@ -39,9 +63,22 @@ textarea {
     height: 40px;
     padding-left: 10px;
     padding-right: 10px;
+    padding-top: 8px;
 }
 
-button.current {
-    box-shadow: 0 0 0 2px white,
-        0 0 0 4px black;
+img#logo {
+    width: 100px;
+    height: 24px;
+}
+
+img#spinner {
+    height: 35px;
+    margin-top: 2.3px;
+    margin-left: -40px;
+    visibility: hidden;
+}
+
+img#output-image {
+    margin-top: 10px;
+    width: 100%;
 }
