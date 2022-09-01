@@ -29,18 +29,26 @@ function loader(boolean) {
     localStorage.setItem("loading", (boolean ? "1" : "0"));
 }
 
-function addTextOutput(text) {
+function renderTextOutput(text) {
     let outputSection = document.getElementById("output-section");
     const para = document.createElement("p");
+    const lowerBar = document.createElement("div");
+    const moreButton = document.createElement("button");
     const textDiv = document.createElement("div");
+    lowerBar.className = "lower-output-bar";
+    moreButton.className = "more-button";
+    moreButton.textContent = "More...";
+    moreButton.addEventListener("click", () => getMoreText(textDiv));
+    lowerBar.appendChild(moreButton);
     textDiv.className = "text-div";
     para.textContent = text;
     para.className = "output-text";
     textDiv.appendChild(para);
+    textDiv.appendChild(lowerBar);
     outputSection.appendChild(textDiv);
 }
 
-function addImageOutput(raw) {
+function renderImageOutput(raw) {
     let outputSection = document.getElementById("output-section");
     const image = document.createElement("img");
     const imageDiv = document.createElement("div");
@@ -67,12 +75,12 @@ async function getInput() {
             case "gptj":
                 response = await fetchText(inputVal, 32);
                 response_text = inputVal + JSON.parse(response)["result"];
-                addTextOutput(response_text);
+                renderTextOutput(response_text);
                 break;
             case "dalle-mega":
                 response = await fetchImage(inputVal);
                 response_text = JSON.parse(response)["result"];
-                addImageOutput(response_text);
+                renderImageOutput(response_text);
                 break;
             default:
                 console.log(`${model} not implemented!`);
@@ -80,6 +88,21 @@ async function getInput() {
         loader(false)
         console.log(response_text);
     }
+}
+
+async function getMoreText(parentDiv) {
+    const children = parentDiv.children;
+    let para;
+    for (let i = 0; i < children.length; i++) {
+        console.log(children[i].tagName.toLowerCase());
+        if (children[i].tagName.toLowerCase() === "p") {
+            para = children[i];
+            break;
+        }
+    }
+    response = await fetchText(para.textContent, 32);
+    response_text = para.textContent + JSON.parse(response)["result"];
+    para.textContent = response_text;
 }
 
 function removeAllChildNodes(parent) {
@@ -99,8 +122,11 @@ function onChangeModel() {
 }
 
 function initialiseDom() {
-    onChangeModel()
-    loader(false)
+    onChangeModel();
+    loader(false);
+
+    // Mock data
+    renderTextOutput("Among the most mysterious things known to humans is the nature and origin of consciousness. For many, it is impossible to conceive of humans having evolved to have consciousness before their brains evolved, and even less possible");
 }
 
 generate.addEventListener("click", () => getInput());

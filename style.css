@@ -49,13 +49,17 @@ label {
 }
 
 button {
+    cursor: pointer;
+}
+
+button#generate {
     font-family: 'Inter';
     font-weight: 400;
     font-size: 20px;
     color: white;
     background-color: black;
     border-style: none;
-    border-color: rgb(255, 255, 255);
+    border-color: white;
     border-width: 2px;
     border-radius: 10px;
     width: 100%;
@@ -64,12 +68,37 @@ button {
     padding-right: 20px;
 }
 
-button:hover {
+button#generate:hover {
     border-style: solid;
 }
 
-button:active {
+button#generate:active {
     border-style: none;
+}
+
+button.more-button {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 14px;
+    color: black;
+    background-color: white;
+    border-style: solid;
+    border-color: black;
+    border-width: 1.5px;
+    border-radius: 10px;
+    width: 70px;
+    height: 27px;
+    text-align: center;
+}
+
+button.more-button:hover {
+    background-color: black;
+    color: white;
+}
+
+button.more-button:active {
+    background-color: white;
+    color: black;
 }
 
 textarea {
@@ -103,4 +132,5 @@ img.output-image {
 
 p.output-text {
     font-size: 14px;
+    margin-bottom: 8px;
 }
