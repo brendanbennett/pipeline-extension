@@ -29,6 +29,28 @@ function loader(boolean) {
     localStorage.setItem("loading", (boolean ? "1" : "0"));
 }
 
+function addTextOutput(text) {
+    let outputSection = document.getElementById("output-section");
+    const para = document.createElement("p");
+    const textDiv = document.createElement("div");
+    textDiv.className = "text-div";
+    para.textContent = text;
+    para.className = "output-text";
+    textDiv.appendChild(para);
+    outputSection.appendChild(textDiv);
+}
+
+function addImageOutput(raw) {
+    let outputSection = document.getElementById("output-section");
+    const image = document.createElement("img");
+    const imageDiv = document.createElement("div");
+    imageDiv.className = "imageDiv";
+    image.src = "data:image/png;base64," + raw;
+    image.className = "output-image";
+    imageDiv.appendChild(image);
+    outputSection.appendChild(imageDiv);
+}
+
 async function getInput() {
     if (!isLoading()) {
         let inputVal = document.getElementById("multilineTextInput").value;
@@ -37,7 +59,6 @@ async function getInput() {
         if (inputVal.length === 0) {
             inputVal = document.getElementById("multilineTextInput").placeholder;
         }
-        let outputDiv = document.getElementById("output-div");
         let response;
         let response_text;
 
@@ -46,18 +67,12 @@ async function getInput() {
             case "gptj":
                 response = await fetchText(inputVal, 32);
                 response_text = inputVal + JSON.parse(response)["result"];
-                const text = document.createElement("p");
-                text.textContent = response_text;
-                text.id = "output-text";
-                outputDiv.appendChild(text);
+                addTextOutput(response_text);
                 break;
             case "dalle-mega":
                 response = await fetchImage(inputVal);
                 response_text = JSON.parse(response)["result"];
-                const image = document.createElement("img");
-                image.src = "data:image/png;base64," + response_text;
-                image.id = "output-image";
-                outputDiv.appendChild(image);
+                addImageOutput(response_text);
                 break;
             default:
                 console.log(`${model} not implemented!`);
@@ -79,8 +94,8 @@ function onChangeModel() {
     const buttonText = { "gptj": "Generate Text", "dalle-mega": "Generate Image" };
     button.textContent = buttonText[model];
 
-    let outputDiv = document.getElementById("output-div");
-    removeAllChildNodes(outputDiv);
+    let outputSection = document.getElementById("output-section");
+    removeAllChildNodes(outputSection);
 }
 
 function initialiseDom() {
