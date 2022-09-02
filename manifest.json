@@ -1,6 +1,6 @@
 {
     "name": "Pipeline AI Extension",
-    "description": "Use nlp and image generation in your browser",
+    "description": "Use AI text and image generation in your browser",
     "version": "0.1.0",
     "manifest_version": 3,
     "host_permissions": [
