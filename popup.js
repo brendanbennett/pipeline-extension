@@ -104,7 +104,7 @@ async function getInput() {
         loader(true)
         switch (model) {
             case "gptj":
-                response = await fetchText(inputVal, 32);
+                response = await fetchText(inputVal, 48);
                 response_text = inputVal + JSON.parse(response)["result"];
                 renderTextOutput(response_text);
                 break;
@@ -149,8 +149,8 @@ function onChangeModel() {
     const buttonText = { "gptj": "Generate Text", "dalle-mega": "Generate Image" };
     button.textContent = buttonText[model];
 
-    let outputSection = document.getElementById("output-section");
-    removeAllChildNodes(outputSection);
+    // let outputSection = document.getElementById("output-section");
+    // removeAllChildNodes(outputSection);
 }
 
 function initialiseDom() {
