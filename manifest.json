@@ -3,9 +3,6 @@
     "description": "Use AI text and image generation in your browser",
     "version": "0.1.0",
     "manifest_version": 3,
-    "host_permissions": [
-        "https://pipeline-extension-backend-y94hx.ondigitalocean.app/*"
-    ],
     "action": {
         "default_popup": "popup.html",
         "default_icon": {
