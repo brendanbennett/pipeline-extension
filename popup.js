@@ -161,6 +161,7 @@ function initialiseDom() {
     // renderTextOutput("Among the most mysterious things known to humans is the nature and origin of consciousness. For many, it is impossible to conceive of humans having evolved to have consciousness before their brains evolved, and even less possible");
 }
 
+logo.addEventListener("click", () => chrome.tabs.create({url: "https://www.pipeline.ai/"}));
 generate.addEventListener("click", () => getInput());
 model.addEventListener("change", () => onChangeModel());
 document.addEventListener("DOMContentLoaded", () => initialiseDom());

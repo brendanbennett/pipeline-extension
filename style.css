@@ -171,3 +171,7 @@ label {
     position: relative;
     top: 4px;
 }
+
+#logo {
+    cursor: pointer;
+}
