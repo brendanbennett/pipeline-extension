@@ -132,7 +132,7 @@ function setImgCopy(img) {
 async function getMoreText(parentDiv) {
     const para = parentDiv.querySelector(".output-text");
     const copyDiv = parentDiv.querySelector(".copy-div");
-    response = await fetchText(para.textContent, 32);
+    response = await fetchText(para.textContent, 48);
     response_text = para.textContent + JSON.parse(response)["result"];
     para.textContent = response_text;
 }
