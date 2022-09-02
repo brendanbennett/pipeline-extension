@@ -4,7 +4,7 @@ async function fetchText(request_text, tokens) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ data: { text: request_text, tokens: tokens } }),
     }
-    let response = await fetch("http://127.0.0.1:5000/gptj", request_dict);
+    let response = await fetch("https://pipeline-extension-backend-y94hx.ondigitalocean.app/gptj", request_dict);
     return response.text();
 }
 
@@ -14,7 +14,7 @@ async function fetchImage(request_text) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ data: { text: request_text } }),
     }
-    let response = await fetch("http://127.0.0.1:5000/dallemega", request_dict);
+    let response = await fetch("https://pipeline-extension-backend-y94hx.ondigitalocean.app/dallemega", request_dict);
     return response.text();
 }
 
@@ -29,17 +29,48 @@ function loader(boolean) {
     localStorage.setItem("loading", (boolean ? "1" : "0"));
 }
 
+function makeCopied(textDiv) {
+    const img = textDiv.querySelector(".copy-div > img");
+    const copiedPara = textDiv.querySelector(".copied-text");
+    setImgTick(img);
+    copiedPara.textContent = "Copied!";
+}
+
+function resetCopy(textDiv) {
+    const img = textDiv.querySelector(".copy-div > img");
+    const copiedPara = textDiv.querySelector(".copied-text");
+    setImgCopy(img);
+    copiedPara.textContent = "";
+}
+
+function copyTextFromPara(textDiv) {
+    const para = textDiv.querySelector(".output-text");
+    navigator.clipboard.writeText(para.textContent);
+    makeCopied(textDiv);
+    setTimeout(() => resetCopy(textDiv), 2000);
+}
+
 function renderTextOutput(text) {
     let outputSection = document.getElementById("output-section");
     const para = document.createElement("p");
     const lowerBar = document.createElement("div");
-    const moreButton = document.createElement("button");
+    const copyImg = document.createElement("img");
     const textDiv = document.createElement("div");
+    const moreButton = document.createElement("button");
+    setImgCopy(copyImg);
+    copyImg.addEventListener("click", () => copyTextFromPara(textDiv));
+    const copyDiv = document.createElement("div");
+    copyDiv.className = "copy-div"
+    copyDiv.appendChild(copyImg)
+    const copiedText = document.createElement("p");
+    copiedText.className = "copied-text";
     lowerBar.className = "lower-output-bar";
     moreButton.className = "more-button";
     moreButton.textContent = "More...";
     moreButton.addEventListener("click", () => getMoreText(textDiv));
     lowerBar.appendChild(moreButton);
+    lowerBar.appendChild(copyDiv);
+    lowerBar.appendChild(copiedText);
     textDiv.className = "text-div";
     para.textContent = text;
     para.className = "output-text";
@@ -90,16 +121,17 @@ async function getInput() {
     }
 }
 
+function setImgTick(img) {
+    img.src = "./images/tick.png";
+}
+
+function setImgCopy(img) {
+    img.src = "./images/copy.png";
+}
+
 async function getMoreText(parentDiv) {
-    const children = parentDiv.children;
-    let para;
-    for (let i = 0; i < children.length; i++) {
-        console.log(children[i].tagName.toLowerCase());
-        if (children[i].tagName.toLowerCase() === "p") {
-            para = children[i];
-            break;
-        }
-    }
+    const para = parentDiv.querySelector(".output-text");
+    const copyDiv = parentDiv.querySelector(".copy-div");
     response = await fetchText(para.textContent, 32);
     response_text = para.textContent + JSON.parse(response)["result"];
     para.textContent = response_text;
@@ -126,7 +158,7 @@ function initialiseDom() {
     loader(false);
 
     // Mock data
-    renderTextOutput("Among the most mysterious things known to humans is the nature and origin of consciousness. For many, it is impossible to conceive of humans having evolved to have consciousness before their brains evolved, and even less possible");
+    // renderTextOutput("Among the most mysterious things known to humans is the nature and origin of consciousness. For many, it is impossible to conceive of humans having evolved to have consciousness before their brains evolved, and even less possible");
 }
 
 generate.addEventListener("click", () => getInput());

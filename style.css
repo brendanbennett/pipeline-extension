@@ -25,8 +25,8 @@ div#top-bar {
 }
 
 div#model-selector {
-    padding-top: 4px;
-    padding-left: 50px;
+    padding-top: 0px;
+    padding-left: 55px;
 }
 
 div#button-area {
@@ -42,6 +42,26 @@ div#output-section {
 
 div.imageDiv {
     margin-top: 10px;
+}
+
+div.text-div > div.lower-output-bar {
+    display: flex;
+    flex-direction: row;
+}
+
+div.copy-div {
+    padding-left: 10px;
+    position: relative;
+    width: 20px;
+}
+
+div.copy-div > img {
+    cursor: pointer;
+    height: 18px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
 }
 
 label {
@@ -133,4 +153,21 @@ img.output-image {
 p.output-text {
     font-size: 14px;
     margin-bottom: 8px;
+}
+
+p.copied-text {
+    margin-top: 6.5px;
+    margin-bottom: 0px;
+}
+
+select#model {
+    border-radius: 5px;
+    border-width: 1.5px;
+    position: relative;
+    top: 3.5px;
+}
+
+label {
+    position: relative;
+    top: 4px;
 }
